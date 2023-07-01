@@ -88,7 +88,11 @@ inline vec3 operator*(const vec3 &u, const vec3 &v) {
 }
 
 inline vec3 operator*(double t, const vec3 &v) {
-    return vec3(t * v.e[0], t*v.e[1], t*v.e[2]);
+    return vec3(t*v.e[0], t*v.e[1], t*v.e[2]);
+}
+
+inline vec3 operator*(const vec3 &v, double t) {
+    return t * v;
 }
 
 inline vec3 operator/(vec3 v, double t) {
@@ -121,6 +125,14 @@ vec3 random_in_unit_sphere() {
 
 vec3 random_unit_vector() {
     return unit_vector(random_in_unit_sphere());
+}
+
+vec3 random_in_unit_disk() {
+    while (true) {
+        auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
+        if (p.length_squared() >= 1) continue;
+        return p;
+    }
 }
 
 vec3 reflect(const vec3& v, const vec3& n) {
